@@ -1,0 +1,118 @@
+# --- Generic types ---
+type PageInfo {
+  hasNextPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+# --- Query ---
+extend type Query {
+  crm: Crm!
+}
+
+type Crm {
+  contact(id: ID!): Contact!
+  contacts(first: Int, after: String): ContactConnection!
+  opportunities(first: Int, after: String): OpportunityConnection!
+  opportunity(id: ID!): Opportunity!
+}
+
+# --- Mutations ---
+extend type Mutation {
+  createContact(input: ContactInput!): Contact!
+  updateContact(id: ID!, input: ContactInput!): Boolean
+  deleteContact(id: ID!): Boolean
+  createContactNote(contactId: ID!, input: NoteInput!): Note!
+
+  createOpportunity(input: OpportunityInput!): Opportunity!
+  updateOpportunity(id: ID!, input: OpportunityInput!): Boolean
+  deleteOpportunity(id: ID!): Boolean
+  createOpportunityNote(opportunityId: ID!, input: NoteInput!): Note!
+}
+
+# --- Contact ---
+type Contact {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+  archived: Boolean
+
+  name: String
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  website: String
+  companyName: String
+
+  notes: [Note]!
+}
+
+type ContactEdge {
+  node: Contact!
+  cursor: String!
+}
+
+type ContactConnection {
+  pageInfo: PageInfo!
+  edges: [ContactEdge]!
+}
+
+type ContactUpdateResponse {
+  id: ID!
+}
+
+input ContactInput {
+  companyName: String
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  website: String
+}
+
+# --- Opportunity ---
+type Opportunity {
+  id: ID!
+  name: String!
+  amount: Decimal
+  stageName: String
+  closeDate: DateTime
+  notes: [Note]!
+}
+
+type OpportunityEdge {
+  node: Opportunity!
+  cursor: String!
+}
+
+type OpportunityConnection {
+  pageInfo: PageInfo!
+  edges: [OpportunityEdge]!
+}
+
+input OpportunityInput {
+  name: String!
+  amount: Decimal
+  stageName: String!
+  closeDate: DateTime!
+}
+
+# --- Company ---
+type Company {
+  name: String!
+  website: String
+}
+
+# --- Note ---
+type Note {
+  id: ID!
+  createdAt: DateTime
+  updatedAt: DateTime
+
+  content: String!
+}
+
+input NoteInput {
+  content: String!
+}

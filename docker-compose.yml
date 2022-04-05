@@ -1,0 +1,48 @@
+version: "3"
+services:
+  db:
+    container_name: blendbase_db
+    environment:
+      POSTGRES_DB: blendbase
+      POSTGRES_PASSWORD: blendbase
+      POSTGRES_USER: blendbase
+    image: postgres:12-alpine
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+  blendbase:
+    container_name: blendbase
+    image: blendbase:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - db
+    env_file:
+      - .env
+    environment:
+      DB_URL: postgres://blendbase:blendbase@db:5432/blendbase
+      DB_HOST: db
+      DB_USER: blendbase
+      DB_PASSWORD: blendbase
+      DB_DATABASE: blendbase
+      DB_PORT: 5432
+    links:
+      - db:db
+    ports:
+      - 8080:8080
+  blendbase_connect_app:
+    container_name: blendbase_connect_app
+    image: blendbase-connect-app:latest
+    build:
+      context: connect-fullstack-webapp-sample
+      dockerfile: Dockerfile
+    depends_on:
+      - blendbase
+    env_file:
+      - connect-fullstack-webapp-sample/.env
+    ports:
+      - 3000:3000
+volumes:
+  postgres-data:

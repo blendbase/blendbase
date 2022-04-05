@@ -1,0 +1,9 @@
+scalar DateTime
+scalar Decimal
+
+type Query {
+  placeholder: String # placeholder to avoid gqlgen auto-generation error
+}
+type Mutation {
+  placeholder: String # placeholder to avoid gqlgen auto-generation error
+}

@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Space+Grotesk:wght@400;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+
+// Additional styles
+@import "additional-styles/utility-patterns.scss";
+@import "additional-styles/range-slider.scss";
+@import "additional-styles/toggle-switch.scss";
+@import "additional-styles/theme.scss";
+
+@tailwind utilities;
+
+.font-grotesk {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.font-plex {
+  font-family: "IBM Plex Sans", sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply font-grotesk;
+}
+
+body {
+  @apply font-plex;
+}
+
+.bg-gradient-pink-blue {
+  background-image: url(/images/bg-block-pink-blue.jpg);
+  background-repeat: no-repeat;
+  background-size: auto;
+}

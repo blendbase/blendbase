@@ -1,0 +1,14 @@
+<h1>Blendbase Integrations</h1>
+
+<h2>Consumer ID: {{.ConsumerID}}</h2>
+{{range .Integrations}}
+<h3>🔌 {{.Type}} » {{.Name}}</h3>
+<div>
+  <a href="{{.LoginUrl}}" target="_blank">Connect {{.Name}} with OAuth2</a> or add API Key
+  <input type="text" placeholder="API key" />
+</div>
+<br />
+
+<div>Callback URL: <i>http://localhost:8080{{.CallbackUrl}}</i></div>
+<hr />
+{{end}}

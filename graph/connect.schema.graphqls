@@ -1,0 +1,45 @@
+enum AuthType {
+  oauth2
+  secret
+}
+
+extend type Query {
+  connect: Connect!
+}
+
+type Connect {
+  integrations: [ConsumerIntegration!]
+}
+
+extend type Mutation {
+  createConsumer: ID!
+  enableConsumerIntegration(serviceCode: String!, enabled: Boolean!): Boolean!
+  setConsumerIntegrationSecret(consumerIntegrationID: String!, secret: String!): Boolean!
+  configureConsumerIntegrationOAuth(consumerIntegrationID: String!, input: OAuth2ConfigurationInput): Boolean!
+}
+
+type ConsumerIntegration {
+  id: String # Unique ID to be able to use it later as a reference
+  code: String # Unique code for a specific integration
+  type: String # "crm"
+  serviceCode: String # e.g. "crm_salesforce"
+  serviceName: String # e.g. "Salesforce"
+  description: String
+  enabled: Boolean
+  callbackURL: String
+  loginURL: String
+  oauth2Metadata: OAuth2Metadata
+  authType: AuthType!
+}
+
+type OAuth2Metadata {
+  clientCredentialsSet: Boolean!
+  tokensSet: Boolean!
+}
+
+input OAuth2ConfigurationInput {
+  clientID: String
+  clientSecret: String
+
+  salesforceInstanceSubdomain: String
+}
