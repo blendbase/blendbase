@@ -12,7 +12,7 @@ const ExternalLinkIcon = () => (
 );
 
 const CheckGithubButton = () => (
-  <a href={AppConfig.githubUrl} className="btn-sm text-gray-200 bg-brand-500 hover:bg-brand-600">
+  <a href={AppConfig.githubUrl} className="btn-sm text-gray-200 bg-brand-500 hover:bg-brand-600" target="_blank">
     <svg
       width="32"
       height="32"

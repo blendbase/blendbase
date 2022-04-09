@@ -28,7 +28,8 @@ function HeroHome() {
                 <div>
                   <a
                     className="btn btn-lg text-white bg-brand-500 hover:bg-brand-700 w-full mb-4 sm:w-auto sm:mb-0"
-                    href="#0"
+                    href={AppConfig.documentationUrl}
+                    target="_blank"
                   >
                     Get started
                   </a>
