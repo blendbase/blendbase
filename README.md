@@ -3,6 +3,8 @@
 Blendbase provides single unified GraphQL API to access CRMs for SaaS solutions builders.
 Instead of building and maintaining various integrations with third-party apps (e.g. Salesforce, HubSpot CRM, PipeDrive, etc.), you can use Blendbase CRM API to access each of these through a single unified interface, no matter what CRM your users use. Blendbase also manages the complexity of authentication and authorization with CRMs.
 
+Check out more at [blendbase.io](https://blendbase.io?ref=github/)
+
 ## Supported CRMs
 
 - Salesforce
