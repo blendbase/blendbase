@@ -36,12 +36,12 @@ services:
     container_name: blendbase_connect_app
     image: blendbase-connect-app:latest
     build:
-      context: connect-fullstack-webapp-sample
+      context: blendbase-sample-saas-app
       dockerfile: Dockerfile
     depends_on:
       - blendbase
     env_file:
-      - connect-fullstack-webapp-sample/.env
+      - blendbase-sample-saas-app/.env
     ports:
       - 3000:3000
 volumes:
