@@ -36,6 +36,7 @@ function HeroHome() {
                 <div>
                   <a
                     className="btn btn-lg text-white bg-slate-700 hover:bg-slate-900 w-full sm:w-auto sm:ml-4"
+                    target="_blank"
                     href={AppConfig.discordUrl}
                   >
                     Join our Discord
