@@ -5,14 +5,17 @@ import (
 	"blendbase/connectors"
 	"blendbase/integrations"
 	"blendbase/misc/gormext"
+	"errors"
 	"fmt"
 	"log"
 	"os"
 
 	"github.com/google/uuid"
+	"gorm.io/gorm"
 )
 
 const (
+	// this UUID is used in the Salesforce callback
 	TEST_CONSUMER_ID = "c6a82fd9-7e22-40c2-8bf2-db58a40839a9"
 )
 
@@ -37,8 +40,22 @@ func Migrate(app *config.App) error {
 // Creates seed data for the database.
 // This is only for development and testing
 func Seed(app *config.App) error {
-	// UUID is used in the Salesforce callback
-	consumer := integrations.Consumer{Base: integrations.Base{ID: uuid.MustParse(TEST_CONSUMER_ID)}}
+	consumer := integrations.Consumer{}
+
+	result := app.DB.First(&consumer, "id = ?", TEST_CONSUMER_ID)
+	if result.Error != nil && !errors.Is(result.Error, gorm.ErrRecordNotFound) {
+		log.Fatalf("failed to seed data: %+v", result.Error)
+		return result.Error
+	}
+
+	if result.Error == nil {
+		log.Println("Seed data already exists")
+		return nil
+	}
+
+	consumer = integrations.Consumer{Base: integrations.Base{ID: uuid.MustParse(TEST_CONSUMER_ID)}}
+	app.DB.Where("1 = 1").Delete(&integrations.ConsumerOauth2Configuration{})
+
 	if err := app.DB.Create(&consumer).Error; err != nil {
 		log.Fatal("failed to create consumer")
 		return err
