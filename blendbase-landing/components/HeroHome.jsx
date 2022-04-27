@@ -28,7 +28,9 @@ function HeroHome() {
                 <div>
                   <a
                     className="btn btn-lg text-white bg-brand-500 hover:bg-brand-700 w-full mb-4 sm:w-auto sm:mb-0"
-                    href="#0"
+                    href={AppConfig.documentationUrl}
+                    target="_blank"
+                    rel="noreferrer"
                   >
                     Get started
                   </a>
@@ -36,6 +38,8 @@ function HeroHome() {
                 <div>
                   <a
                     className="btn btn-lg text-white bg-slate-700 hover:bg-slate-900 w-full sm:w-auto sm:ml-4"
+                    target="_blank"
+                    rel="noreferrer"
                     href={AppConfig.discordUrl}
                   >
                     Join our Discord
